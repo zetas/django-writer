@@ -1,0 +1,123 @@
+{% extends 'dynamic_base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'classes/css/classes.css' %}" />
+{% endblock %}
+
+{% block foot_js %}
+    {{ block.super }}
+    <script src="{% static 'main/js/min/dashboard.min.js' %}"></script>
+{% endblock %}
+
+{% block dynamic_content %}
+    {% regroup submissions by classroom as submission_list %}
+<div class="col-md-6">
+    <h2>Instructor Dashboard</h2>
+    <h4 class="classes_row class_list">Papers Received - <small>
+        {% for submission in submission_list %}
+            <a href="#" class="class_link" id="{{ submission.grouper.id }}">{{ submission.grouper.name }}</a> {% if not forloop.last %} | {% else %} | <a href="#" class="class_link selected" id="all">All</a> {% endif %}
+        {% empty %}
+            None
+        {% endfor %}
+
+    </small></h4>
+    <table class="table table-hover classes_lg_row submission_table" id="submission_all_table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in submissions %}
+            <tr>
+                <td>{{ s.paper.user.feedback_name }}</td>
+                <td><a href="{% url 'papers:instructor' s.paper.id %}">{{ s.paper.title }}</a></td>
+                <td>{{ s.paper.date_modified }}</td>
+            </tr>
+            {% empty %}
+                <tr><td colspan="3">No Submissions</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% for submission in submission_list %}
+        <table class="table table-hover classes_lg_row submission_table hidden" id="submission_{{ submission.grouper.id }}_table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Modified</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item in submission.list %}
+                    <tr>
+                        <td>{{ item.paper.user.feedback_name }}</td>
+                        <td><a href="{% url 'papers:instructor' item.paper.id %}">{{ item.paper.title }}</a></td>
+                        <td>{{ item.paper.date_modified }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="3">No Submissions for {{ submission.grouper.name }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+
+
+
+</div>
+<div class="col-md-6">
+    <h2>&nbsp;</h2>
+    <h4 class="classes_row">Latest Feedback - <small><a href="#" class="feedback_link" id="feedback_given">Given</a> | <a href="#" class="feedback_link selected" id="feedback_received">Received</a></small></h4>
+    <table class="table table-hover classes_lg_row" id="feedback_received_table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Paper</th>
+                <th>Message</th>
+                <th>Received</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cr in comments_received|dictsortreversed:"created" %}
+            <tr>
+                <td>{{ cr.author.feedback_name }}</td>
+                <td><a href="{% url 'papers:instructor' cr.paper.id %}">{{ cr.paper.title }}</a></td>
+                <td>{{ cr.content|slice:":35" }}</td>
+                <td>{{ cr.created }}</td>
+            </tr>
+            {% empty %}
+                <tr><td colspan="4">No Feedback Received</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="table table-hover classes_lg_row hidden" id="feedback_given_table">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Paper</th>
+                <th>Message</th>
+                <th>Sent</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cg in comments_given|dictsortreversed:"created" %}
+            <tr>
+                <td>{{ cg.author.feedback_name }}</td>
+                <td><a href="{% url 'papers:instructor' cg.paper.id %}">{{ cg.paper.title }}</a></td>
+                <td>{{ cg.content|slice:":50" }}</td>
+                <td>{{ cg.created }}</td>
+            </tr>
+            {% empty %}
+                <tr><td colspan="4">No Feedback Given</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,56 @@
+<form name="account_create" action="{% url 'account:signup' %}" method="post" id="account_create_form">
+    {% csrf_token %}
+    <div class="form sign-up">
+    <h4><b>Sign up</b> and start Writing</h4>
+
+    <fieldset>
+        <legend></legend>
+        {% if '/personal' not in request.path %}
+        <div class="radio-buttons">
+            {% for choice in signup_form.aType %}
+                {{ choice.tag }}
+                {% if choice.choice_value == 'personal' %}
+                    <label id="label-{{ choice.choice_value }}" data-order="0" class="radio three selected">
+                {% else %}
+                    <label id="label-{{ choice.choice_value }}" data-order="1" class="radio three">
+                {% endif %}
+                        <span class="radio-text">{{ choice.choice_label }}</span>
+                    </label>
+            {% endfor %}
+
+
+        </div>
+        {% else %}
+            <input type="hidden" name="account_type" id="id_account_type_0" value="2" />
+        {% endif %}
+        <label class="input">
+            {{ signup_form.email }}
+            {{ signup_form.email.errors }}
+        </label>
+        <label class="input">
+            {{ signup_form.password1 }}
+            {{ signup_form.password1.errors }}
+        </label>
+        <label class="input">
+            {{ signup_form.password2 }}
+            {{ signup_form.password2.errors }}
+        </label>
+        <div class="error_area" id="error_account_create">
+           {% if signup_success == False %}
+                    <span class="error_text">Signup unsuccessful. Please try again or contact support.</span>
+                {% endif %}
+                <p>{{ signup_form.non_field_errors }}</p>
+		</div>
+        <div class="input-tos">
+
+            <span class="tos">
+
+                <a href="https://www.writerr.co/terms.php" target="_blank">I agree to Writerr's terms</a>
+            </span>
+        </div><input type="submit" value="Create Account" name="account_create" id="account_create" class="btn orange">
+
+    </fieldset>
+
+
+  </div>
+</form>

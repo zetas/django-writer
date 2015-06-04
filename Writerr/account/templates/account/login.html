@@ -1,0 +1,75 @@
+{% extends 'static_base.html' %}
+
+{% load staticfiles %}
+
+{% block foot_js %}
+    {{ block.super }}
+    <script src="{% static 'account/js/min/login.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+        {% include 'main/partials/auth_header.html' %}
+          <article class="panel-heading">
+            <h3 class="panel-title">Log In</h3>
+          </article>
+          <article class="panel-body">
+          <div class="error_area" id="error_account_login">
+                {% if login_success == False %}
+                    <span class="error_text">Unrecognized Login Information.</span>
+                {% endif %}
+                <p>{{ login_form.non_field_errors }}</p>
+            </div>
+            <form method="POST" action="" class="form-horizontal" id="loginform">
+                {% csrf_token %}
+              <div class="control-group">
+                <label class="control-label sr-only">Type your e-mail address</label>
+                <div class="controls">
+                  {{ form.email }}
+                </div>
+                {{ form.email.errors }}
+              </div>
+              <div class="control-group">
+                <label class="control-label sr-only">Choose a password</label>
+                <div class="controls">
+                  {{ form.password }}
+                </div>
+                  {{ form.password.errors }}
+              </div>
+            </form>
+          </article>
+          <a href="#" id="loginform_submit"><article class="btn btn-primary btn-block panel-footer">
+            <h3 class="panel-title">Log me in</h3>
+          </article></a>
+        </div>
+        <p class="sign-alternative">or <a href="#" id="signup_button" data-target="{% url 'account:signup' %}">Sign Up</a></p>
+      </article>
+    </article>
+  </div><!-- /.main -->
+  <article class="row learn-more">
+    <article class="col-lg-3 col-lg-offset-5 text-center">
+        <a href="{% url 'main:students' %}">Learn More</a>
+    </article>
+  </article>
+</article><!-- /.container -->
+{% endblock %}
+
+{% block ajax %}
+    <div id="forgot_password_modal" class="hidden">
+        <div class="sign_in_box">
+            <form action="#" method="POST" name="forgot_password_form" id="forgot_password_form">
+                {% csrf_token %}
+                <div class="sign_in_fields">
+                    <div class="sign_in_field_container">
+                        <input type="email" name="email" class="sign_in_input" placeholder="Email Address" />
+                    </div>
+                    <div class="error_area" id="error_account_recover_password">
+
+                    </div>
+                    <div class="sign_in_field_container">
+                        <input type="submit" name="recover_password" title="Reset Password" value="Reset Password"  id="account_recover_password" class="green_button_submit"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

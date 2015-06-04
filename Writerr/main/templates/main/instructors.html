@@ -1,0 +1,121 @@
+{% extends 'static_base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    {% include 'main/partials/header.html' %}
+    
+    <article class="col-lg-9 content-col">
+      <div class="row">
+        <article class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+          <div class="row text-center">
+            <article class="col-lg-12">
+              <h1 class="slogan-black" style="word-break: break-all">Paper Management Made Simple</h1>
+              <h4 class="slogan-gray-light">Give feedback and collect your student's papers.</h4>
+              <img src="{% static 'main/images/cycle-intro.png' %}" class="img-responsive center-block">
+            </article>
+            <article class="col-lg-12 features">
+                <article class="col-lg-4 col-md-4">
+                  <img src="{% static 'main/images/devices.png' %}" class="img-responsive center-block img-feat" alt="">
+                  <p class="slogan-black">What analysis are used to analyze my paper?</p>
+                  <p class="slogan-gray-light">Keep all of your papers in the cloud. Access your papers on any device.</p>
+                </article>
+                <article class="col-lg-4 col-md-4">
+                  <img src="{% static 'main/images/students.png' %}" class="img-responsive center-block img-feat" alt="">
+                  <p class="slogan-black">What analysis are used to analyze my paper?</p>
+                  <p class="slogan-gray-light">Keep all of your papers in the cloud. Access your papers on any device.</p>
+                </article>
+                <article class="col-lg-4 col-md-4">
+                  <img src="{% static 'main/images/instructor.png' %}" class="img-responsive center-block img-feat" alt="">
+                  <p class="slogan-black">What analysis are used to analyze my paper?</p>
+                  <p class="slogan-gray-light">Keep all of your papers in the cloud. Access your papers on any device.</p>
+                </article>
+            </article>
+          </div>
+            <article class="row text-center">
+              <div class="col-lg-12 slogan-two">
+                <h2 class="slogan-black">Setup your class to simplify paper management.</h2>
+                <h4 class="slogan-gray-light">Setup your class to keep track of all your student's paper, all in one place.</h4>  
+              </div>
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-6 col-lg-push-6">
+                <img src="{% static 'main/images/imac.png' %}" class="img-responsive" alt="">
+              </div>
+              <div class="col-lg-6 col-lg-pull-6 text-left two-col-info">
+                <p>Setup your class to keep track of all your student's paper, all in one place. Setup your class to keep track of all your student's paper, all in one place.</p>
+                <p>Setup your class to keep track of all your student's paper, all in one place.</p>
+              </div>
+            </article>
+            <article class="row text-center slogan-three">
+              <h2 class="slogan-black">Give feedback to your students.</h2>
+              <h4 class="slogan-gray-light">Email conversations are broken.<br>
+                Use Writerr to give feedback to your students.</h4>
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-6">
+                <img src="{% static 'main/images/chrome.png' %}" class="img-responsive" alt="">
+              </div>
+              <div class="col-lg-6 text-left two-col-info">
+                <p>Setup your class to keep track of all your student's paper, all in one place. Setup your class to keep track of all your student's paper, all in one place.</p>
+                <p>Setup your class to keep track of all your student's paper, all in one place.</p>
+              </div>
+            </article>
+            <article class="row text-center slogan-three">
+              <h2 class="slogan-black">Receive your student's paper with Writerr.</h2>
+              <h4 class="slogan-gray-light">No more "lost" papers that go missing in your or your student's e-mail account.</h4>
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-4 col-lg-offset-2 col-lg-push-6">
+                <img src="{% static 'main/images/iphone.png' %}" class="img-responsive center-block" alt="">
+              </div>
+              <div class="col-lg-6 col-lg-pull-6 text-left two-col-info">
+                <p>Setup your class to keep track of all your student's paper, all in one place. Setup your class to keep track of all your student's paper, all in one place.</p>
+                <p>Setup your class to keep track of all your student's paper, all in one place.</p>
+              </div>
+            </article>
+            <article class="row slogan-four text-center">
+              <h2 class="slogan-black">Frequently Asked Questions</h2>
+            </article>
+            <article class="row">
+              <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-2 col-sm-4 col-sm-offset-1 text-left">
+                <p class="slogan-black">Do I get billed monthly?</p>
+                <p class="slogan-gray-light">
+                  No, you are billed yearly.<br>
+                  You will be billed one time per year for $60.
+                </p>
+                <br>
+                <p class="slogan-black">Can I cancel my account?</p>
+                <p class="slogan-gray-light">
+                  Yes! We'd hate to see you go, but things happen. Shoot us an email at sales@writerr.co and we'll get you taken care of.
+                </p>
+              </div>
+              <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-4 col-sm-offset-2 text-left">
+                <p class="slogan-black">Can I get rewarded if I get my instructor using Writerr for a class I'm in?</p>
+                <p class="slogan-gray-light">
+                  Absolutely! Please contact us at referrals@writerr.co and we'll look into it and get you taken care of.
+                </p>
+                <br>
+                <p class="slogan-black">What analysis are used to analyze my paper?</p>
+                <p class="slogan-gray-light">
+                  We've got a wide variety of analysis that you can run on your paper. Just to name a few: to-be verbs, vague &amp; abstract.
+                </p>
+              </div>
+            </article>
+            <article class="row sign-button text-center">
+              <div class="col-lg-6 col-lg-offset-3">
+                <button type="button" class="btn btn-primary btn-lg text-center" data-target="{% url 'account:signup' %}">Sign Up Now</button>
+                <p class="text-small">or <a href="{% url 'account:signup' %}">Try it Now for Free</a></p>
+              </div>
+            </article>
+          </div>
+        </article>
+        
+      </div>
+        
+      </div>
+    </article><!-- /.content-col -->
+  </div><!-- /.main -->
+</article><!-- /.container -->
+{% endblock %}

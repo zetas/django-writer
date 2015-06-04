@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="body_container_info">
+		<div class="body">
+			<!-- Main Column -->
+			<div class="main_column_info">
+				<div class="info_intro">
+					<h1>We're Sorry!</h1>
+				</div>
+				<div class="info_content">
+                    <p>The page <strong>{{ request_path }}</strong> doesn't seem to exist. Click <a href="{% url 'main:index' %}">here</a> to return to the home page.</p>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

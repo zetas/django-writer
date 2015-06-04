@@ -1,0 +1,43 @@
+{% extends 'dynamic_base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/account.css' %}"/>
+{% endblock %}
+
+{% block dynamic_content %}
+ <article class="col-lg-9 content-col">
+      <div class="row">
+        <article class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+          <div class="row text-center">
+            <h1 class="slogan-black">Thank you.</h1>
+            <h4 class="slogan-gray-light">Your order has been completed. Please follow the following steps.</h4>
+            <article class="row two-col">
+              <div class="col-md-12">
+                <h2>Step 1.</h2>
+                <p class="slogan-gray-light">Please check your inbox. If you did not receive an email from us, please check your spam folder. Occasionally e-mails get trapped in span aren't spam. Don't worry, we hate spam just as much as you do. We will only send you e-mails related to your account.</p>
+              </div>
+            </article>
+            <article class="row two-col">
+              <div class="col-md-12">
+                 <h2>Step 2.</h2>
+                <p class="slogan-gray-light">Now that you've purchased Writerr, you can enjoy all of the benefits it has to offer. Go to your <strong>Account Settings</strong> page and activate your license. We recommend you do it now, but it can be done at a later time.</p>
+              </div>
+            </article>
+          </div>
+        </article>
+      </div>
+    <div class="row">
+    <br/><br/><br/>
+    {% include 'main/partials/contact_form.html' with contact_header='Have any questions about your purchase?' contact_subheader="Contact us by filling out the form below and we'll contact you." form=contact_form %}
+    </article>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>&nbsp;</p>
+        </div>
+    </div>
+    </article><!-- /.content-col -->
+
+{% endblock %}

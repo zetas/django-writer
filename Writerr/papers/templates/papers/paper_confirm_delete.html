@@ -1,0 +1,20 @@
+{% extends 'papers/base.html' %}
+
+{% block dynamic_content %}
+    <div class="body_container_info">
+		<div class="body">
+			<!-- Main Column -->
+			<div class="main_column_info">
+				<div class="info_intro">
+					<h1>Delete Paper</h1>
+				</div>
+				<div class="info_content">
+                    <form action="" method="post">{% csrf_token %}
+                        <p>Are you sure you want to delete "{{ object }}"?</p>
+                        <input type="submit" value="Confirm" class="btn primary" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

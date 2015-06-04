@@ -1,0 +1,25 @@
+{% extends 'papers/base.html' %}
+
+{% block right_bar %}
+{% endblock %}
+
+{% block side_menu %}
+{% endblock %}
+
+{% block header_buttons %}
+{% endblock %}
+
+{% block foot_js %}
+{% endblock %}
+
+{% block menu_icon %}
+{% endblock %}
+
+{% block dynamic_content %}
+    <div id="title_editable" class="editable">
+        {{ paper.title }}
+    </div>
+    <div id="body_editable" class="editable">
+        {{ paper.body|safe }}
+    </div>
+{% endblock %}

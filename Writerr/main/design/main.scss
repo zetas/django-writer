@@ -1,0 +1,162 @@
+$base_path: '/static/main/images/';
+$base_font_path: '/static/main/fonts/';
+$base_font_size: 13px;
+
+@import "bootstrap";
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: $base_font_size;
+    margin: 0;
+    padding: 10px 0 0 0;
+    color: black;
+}
+
+#top_nav {
+  padding-right: 0;
+  ul {
+    list-style: dots;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+#leftMenu {
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  #welcome_text {
+    margin-top: 40px;
+    line-height: 48px;
+  }
+}
+
+.errorlist {
+	color: #AE011D;
+    font-size: 11px;
+}
+
+.data-table {
+  width: 90%;
+  th, td {
+    text-align: center;
+  }
+}
+
+@import "writerr_sidr";
+
+.sidr-inner li {
+  padding-left: 70px;
+}
+
+.small-header {
+  font-weight: bold;
+  font-size: $base_font_size+1;
+}
+
+.account-details {
+  padding-top: 5px;
+}
+
+.checkout-details {
+  display: block;
+  padding-bottom: 5px;
+}
+
+
+.separator {
+  border-top: 1px solid #ccc;
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+#price_type_header {
+  text-transform: capitalize;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.ui-widget-content a {
+  color: #428bca;
+}
+
+a.btn {
+  color: #fff;
+}
+
+
+#menu_logo {
+  width: 50px;
+  height: 50px;
+  max-width: 50px;
+  margin-bottom: 5px;
+  //background-color: #fff;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+#loading {
+  padding-left: 5px;
+  display: inline;
+}
+
+#loading_cog
+{
+    -webkit-animation-name:             rotate;
+    -webkit-animation-duration:         1s;
+    -webkit-animation-iteration-count:  infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+// Popup Styles
+
+.ui-dialog {
+  padding: 0;
+  border-radius: 4px;
+}
+
+.ui-widget-header {
+    background: none repeat scroll 0% 0% transparent;
+    border-bottom: 1px solid #CCCCCC;
+    color: #999;
+}
+
+.ui-dialog-title {
+  padding-left: 10px;
+}
+
+
+// Left Navigation
+
+.left-nav-container {
+  .nav > li > a {
+    padding: 5px 0px 5px 55px;
+  }
+  .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    font-weight: bold;
+    color: #000;
+    background-color: transparent;
+  }
+  .nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: transparent;
+  }
+  .left-main-nav {
+    margin-top: 20px;
+    a {
+      color: #2479CF;
+    }
+  }
+}

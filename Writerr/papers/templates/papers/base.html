@@ -1,0 +1,220 @@
+{% extends 'dynamic_base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic'>
+    <link rel="stylesheet" href="{% static 'papers/css/medium-editor.css' %}" />
+    <link rel="stylesheet" href="{% static 'papers/css/medium-editor-theme-bootstrap.css' %}" />
+     <link rel="stylesheet" href="{% static 'papers/css/medium-editor-insert-plugin.css' %}" />
+    <link rel="stylesheet" href="{% static 'papers/css/papers.css' %}" />
+{% endblock %}
+
+{% block foot_js %}
+    {{ block.super }}
+    <script src="{% static 'papers/js/min/jquery.highlight.min.js' %}"></script>
+    <script src="{% static 'papers/js/min/jquery.mousewheel.min.js' %}"></script>
+    <script src="{% static 'papers/js/min/mwheelIntent.min.js' %}"></script>
+    <script src="{% static 'papers/js/min/jquery.jscrollpane.min.js' %}"></script>
+    <script src="{% static 'papers/js/min/medium-editor.min.js' %}"></script>
+    {% if urlname != 'instructor' %}
+    <script src="{% static 'papers/js/min/medium-editor-insert-plugin.min.js' %}"></script>
+    <script src="{% static 'papers/js/min/medium-editor-insert-images.min.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'papers/js/min/text_statistics.min.js' %}"></script>
+    {% if urlname == 'instructor' %}
+    <script src="{% static 'papers/js/min/papers-instructor.min.js' %}"></script>
+    {% else %}
+    <script src="{% static 'papers/js/min/papers.min.js' %}"></script>
+    {% endif %}
+{% endblock %}
+
+{% block header_buttons %}
+        <div class="paper-icon-menu">
+            <button type="button" class="btn btn-sm btn-default" id="feedback_button"><span class="glyphicon glyphicon-comment"></span></button>
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-default" id="analyze_button"><span class="glyphicon glyphicon-stats"></span></button>
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li class="dropdown-header">Metrics</li>
+              <li><a href="#" class="analyze_section_link" data-div="readability_container">Readability</a></li>
+              <li><a href="#" class="analyze_section_link" data-div="text_statistics_container">Text Statistics</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Word Usage</li>
+              <li><a href="#" class="analyze_section_link" data-div="word_occurrence_container">Word Occurrences</a></li>
+              <li><a href="#" class="analyze_section_link" data-div="vague_words_container">Vague Words</a></li>
+              <li><a href="#" class="analyze_section_link" data-div="abstract_words_container">Abstract Words</a></li>
+              <li><a href="#" class="analyze_section_link" data-div="fluff_words_container">Fluff Words</a></li>
+              <li><a href="#" class="analyze_section_link" data-div="tobe_words_container">"To-be" Verbs</a></li>
+            </ul>
+          </div>
+            {% if urlname != 'instructor' %}
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-default submit-paper-button"><span class="glyphicon glyphicon-share"></span></button>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" class="submit-paper-button">Send PDF</a></li>
+                    <li><a href="#" id="permalink-button">Permalink</a></li>
+                    {% if request.user.has_class %}
+                    <li><a href="#" id="submit-to-instructor-button">Submit to Instructors</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <button type="button" class="btn btn-sm btn-default" id="delete_button"><span class="glyphicon glyphicon-remove"></span></button>
+            <button type="button" class="btn btn-sm btn-success" id="save_button"><span class="glyphicon glyphicon-save"></span></button>
+            {% endif %}
+        </div>
+{% endblock %}
+
+{% block right_bar %}
+            <div id="article_analyze" class="analyze_results">
+                <div id="ana-result" class="hidden">
+                    <div id="readability_container" class="hidden">
+                        <div class="column_title">
+                            Readability
+                        </div>
+
+                        <div class="column_title inner_title">
+                            How we measure Readability
+                        </div>
+                        <div class="analyze_content analyze_description">
+                            <small>Regarding Flesch-Kincaid Reading Ease, a higher score indicates easier readability; scores usually range between 0 and 100. A grade level (based on the USA education system) is equivalent to the number of years of education a person has had. Scores over 22 should generally be taken to mean graduate level text. Please check the wikipedia links for more information.</small>
+                        </div>
+                        <div class="column_title inner_title">
+                            Your Readability Results
+                        </div>
+                        <div id="readability" class="analyze_content analyze_result">
+                            <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid#Flesch_Reading_Ease" target="_blank">Flesch-Kincaid Reading Ease</a>: <span id="fk_reading_ease" class="results">-</span><br/>
+                            <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid#Flesch.E2.80.93Kincaid_Grade_Level" target="_blank">Flesch-Kincaid Grade level</a>: <span id="fk_grade_level" class="results">-</span><br/>
+                            <a href="http://en.wikipedia.org/wiki/Gunning-Fog_Index" target="_blank">Gunning-Fog score</a>: <span id="gf_score" class="results">-</span><br/>
+                            <a href="http://en.wikipedia.org/wiki/Coleman-Liau_Index" target="_blank">Coleman-Liau Index</a>: <span id="cl_index" class="results">-</span><br/>
+                            <a href="http://en.wikipedia.org/wiki/SMOG_Index" target="_blank">SMOG Index</a>: <span id="smog_index" class="results">-</span><br/><br/>
+                            Average Grade Level: <span id="grade_level" class="results">-</span><br/>
+                        </div>
+                    </div>
+                    <div id="text_statistics_container" class="hidden">
+                        <div class="column_title">
+                            Text Statistics
+                        </div>
+                        <div class="column_title inner_title">
+                            How we measure Text Statistics
+                        </div>
+                        <div class="analyze_content analyze_results analyze_description">
+                            <small>Some quick statistics to help you figure out the secrets of the style used to write the text.</small>
+                        </div>
+                        <div class="column_title inner_title">
+                            Your Text Statistics
+                        </div>
+                        <div id="text_statistics" class="analyze_content">
+                            Sentence count: <span class="results" id="sentence_count">-</span><br/>
+                            Word count: <span class="results" id="word_count">-</span><br/>
+                            Average words/sentence: <span class="results" id="avg_word_sentence">-</span><br/>
+                            Average syllables per word: <span class="results" id="avg_syllables_word">-</span><br/>
+                        </div>
+                    </div>
+                    <div id="word_occurrence_container" class="hidden">
+                        <div class="column_title">
+                            Word Occurrence
+                        </div>
+                         <div class="column_title inner_title">
+                            How we measure Word Occurrences
+                        </div>
+                        <div class="analyze_content analyze_results analyze_description">
+                            <small>The most often used words and the number of occurrences. We only show the top 25 words.</small>
+                        </div>
+                        <div class="column_title inner_title">
+                            Your Word Occurrences
+                        </div>
+                        <div id="occurrence_words" class="analyze_content analyze_result">
+
+                        </div>
+                    </div>
+                    <div id="vague_words_container" class="hidden">
+                        <div class="column_title">
+                            Vague Words
+                        </div>
+                        <div class="column_title inner_title">
+                            How we measure Vague Words
+                        </div>
+                        <div class="analyze_content analyze_results analyze_description">
+                            <small>Below you will find words that can sometimes be vague. Please note that these might however not be vague in the actual context. We only show the top 25 words.</small>
+                        </div>
+                        <div class="column_title inner_title">
+                            Your Vague Words
+                        </div>
+                        <div id="vague_words" class="analyze_content analyze_result">
+                            It looks like you don't have any vague words in your paper. Good work!
+                        </div>
+                    </div>
+                    <div id="abstract_words_container" class="hidden">
+                        <div class="column_title">
+                            Abstract Words
+                        </div>
+                        <div class="column_title inner_title">
+                            How we measure Abstract Words
+                        </div>
+                        <div class="analyze_content analyze_results analyze_description">
+                            <small>Below you will find words that can sometimes be abstract. Please note that these might however not be abstract in the actual context. We only show the top 25 words.</small>
+                        </div>
+                        <div class="column_title inner_title">
+                            Your Abstract Words
+                        </div>
+                        <div id="abstract_words" class="analyze_content analyze_result">
+                            It looks like you don't have any abstract words in your paper. Good work!
+                        </div>
+                    </div>
+                    <div id="fluff_words_container" class="hidden">
+                        <div class="column_title">
+                            Fluff Phrases
+                        </div>
+                        <div class="column_title inner_title">
+                            How we measure Fluff Words
+                        </div>
+                        <div class="analyze_content analyze_results analyze_description">
+                            <small>Below you will find words that can sometimes be used as fluff. Please note that these might however not be fluff in the actual context. We only show the top 25 words.</small>
+                        </div>
+                        <div class="column_title inner_title">
+                            Your Fluff Words
+                        </div>
+                        <div id="fluff_words" class="analyze_content analyze_result">
+                            It looks like you don't have any fluff words in your paper. Good work!
+                        </div>
+                    </div>
+                    <div id="tobe_words_container" class="hidden">
+                        <div class="column_title">
+                            "To-be" Verbs
+                        </div>
+                        <div class="column_title inner_title">
+                            How we measure "To-be" Verbs
+                        </div>
+                        <div class="analyze_content analyze_results analyze_description">
+                            <small>Below you will find your usage of so-called "To-be" verbs.</small>
+                        </div>
+                        <div class="column_title inner_title">
+                            Your "To-be" verbs
+                        </div>
+                        <div id="tobe_words" class="analyze_content analyze_result">
+                            It looks like you don't have any "to-be" verbs in your paper. Good work!
+                        </div>
+                    </div>
+                    <div id="clear_analysis" class="hidden">
+
+                        <div class="clearfix"></div>
+                        <div class="analyze_content analyze_description">
+                            <div id="container">
+                            <button id="analyze_clear_link" class="btn btn-primary btn-block">Clear Analysis Results</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                {% include 'papers/partials/feedback.html' %}
+            </div>
+{% endblock %}

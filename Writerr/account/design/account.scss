@@ -1,0 +1,32 @@
+//Necessary to center placeholder for redeem code input
+
+::-webkit-input-placeholder {
+   text-align:center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align:center;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align:center;
+}
+
+:-ms-input-placeholder {
+   text-align:center;
+}
+
+.checkout_break {
+  padding-top: 10px;
+}
+
+
+// Titles Typography Color
+.gray-colored {
+	color: #565656;
+}
+
+// Width Fixes For Billing Zip and Billing State
+.half-form-padding {
+	padding-right: 5px;
+}

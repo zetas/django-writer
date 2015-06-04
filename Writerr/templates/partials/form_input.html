@@ -1,0 +1,9 @@
+{% load uihelpers %}
+
+<div class="{{ width_class }} {% has_error field.errors %}">
+    {{ field }}
+    {% if field.errors %}
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+    <span class="help-block text-danger">{{ field.errors }}</span>
+    {% endif %}
+</div>

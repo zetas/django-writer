@@ -1,0 +1,5 @@
+[
+    {"pk": 1, "model": "sites.site", "fields": {"domain": "127.0.0.1:8080", "name": "Writerr [Development]"}},
+    {"pk": 2, "model": "sites.site", "fields": {"domain": "writerr.qubitlogic.net", "name": "Writerr [QA]"}},
+    {"pk": 3, "model": "sites.site", "fields": {"domain": "writerr.co", "name": "Writerr.co"}}
+]

@@ -1,0 +1,50 @@
+<article class="col-lg-11 col-lg-offset-1 col-xs-11 col-xs-offset-1">
+          <div class="row text-center">
+            <h1 class="slogan-black">{{ contact_header }}</h1>
+            <h4 class="slogan-gray-light">{{ contact_subheader }}</h4>
+          </div>
+          <div class="row contact-area">
+            <form method="POST" action="{% url 'main:contact' %}" class="form-horizontal">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+              <div class="control-group col-lg-6">
+                <label class="control-label sr-only" for="input1">Name</label>
+                <div class="controls">
+                  {{ form.full_name }}
+                </div>
+                  {{ form.full_name.errors }}
+              </div>
+              <div class="control-group col-lg-6">
+                <label class="control-label sr-only" for="input2">E-mail address</label>
+                <div class="controls">
+                  {{ form.email }}
+                </div>
+                  {{ form.email.errors }}
+              </div>
+              <div class="control-group col-lg-6">
+                <label class="control-label sr-only" for="input3">Phone number</label>
+                <div class="controls">
+                  {{ form.phone }}
+                </div>
+                  {{ form.phone.errors }}
+              </div>
+              <div class="control-group col-lg-6">
+                <label class="control-label sr-only" for="input4">What is your inquiry about?</label>
+                <div class="controls">
+                  {{ form.subject }}
+                </div>
+                  {{ form.subject.errors }}
+              </div>
+              <div class="control-group col-lg-12">
+                <label class="control-label sr-only" for="input3">Let us know how we can help</label>
+                <div class="controls">
+                  {{ form.message }}
+                </div>
+                  {{ form.message.errors }}
+              </div>
+              <div class="form-actions col-lg-6 col-lg-offset-3">
+                <br>
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Send Message</button>
+              </div>
+            </form>
+          </div>

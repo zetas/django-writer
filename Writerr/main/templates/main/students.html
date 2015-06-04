@@ -1,0 +1,96 @@
+{% extends 'static_base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    {% include 'main/partials/header.html' %}
+
+    <article class="col-lg-9 content-col">
+      <div class="row">
+        <article class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+          <div class="row text-center">
+            <h1 class="slogan-black">Everything you need to write your paper</h1>
+            <h4 class="slogan-gray-light">Writerr for Students is just $5 per month</h4>
+            <article class="row two-col">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <img src="{% static 'main/images/document.png' %}" class="img-responsive center-block" alt="">
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 text-right two-col-text">
+                <p class="slogan-black">Write your paper online. Keep it in the cloud.</p>
+                <p class="slogan-gray-light">Write as many papers as you want and keep them safe in the cloud. Access your papers from any device that has an internet connection. </p>
+              </div>
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-2 col-lg-offset-1 col-lg-push-9 col-md-2 col-md-offset-1 col-md-push-9 col-sm-2 col-sm-offset-1 col-sm-push-9 col-xs-12">
+                <img src="{% static 'main/images/lightning.png' %}" class="img-responsive center-block" alt="">
+              </div>
+              <div class="col-lg-9 col-lg-pull-3 col-md-9 col-md-pull-3 col-sm-9 col-sm-pull-3 col-xs-12 text-left two-col-text">
+                <p class="slogan-black">Analyze your document to fine tune it.</p>
+                <p class="slogan-gray-light">We’ve developed a few writing analysis tools that will analyze your documents and make suggestions based on your paper’s performance.</p>
+              </div>
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <img src="{% static 'main/images/students-orange.png' %}" class="img-responsive center-block" alt="">
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 text-right two-col-text">
+                <p class="slogan-black">Get feedback from your instructor.</p>
+                <p class="slogan-gray-light">Send your paper to your instructor  to get feedback. They can leave a comment or two to start a convo to help you on your paper.</p>
+              </div>
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-2 offset-1 col-lg-push-9 col-md-2 col-md-offset-1 col-md-push-9 col-sm-2 col-sm-offset-1 col-sm-push-9 col-xs-12">
+                <img src="{% static 'main/images/rocket.png' %}" class="img-responsive center-block" alt="">
+              </div>
+              <div class="col-lg-9 col-lg-pull-3 col-md-9 col-md-pull-3 col-sm-9 col-sm-pull-3 col-xs-12 text-left two-col-text">
+                <p class="slogan-black">Lastly, submit your paper to your instructor.</p>
+                <p class="slogan-gray-light">Once you’ve got some feedback from your instructor or peer, send your paper to your instructor.</p>
+              </div>
+            </article>
+
+
+            <article class="row slogan-four">
+              <h2 class="slogan-black">Frequently Asked Questions</h2>
+            </article>
+            <article class="row">
+              <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-2 col-sm-4 col-sm-offset-1 text-left">
+                <p class="slogan-black">Do I get billed monthly?</p>
+                <p class="slogan-gray-light">
+                  No, you are billed yearly.<br>
+                  You will be billed one time per year for $60.
+                </p>
+                <br>
+                <p class="slogan-black">Can I cancel my account?</p>
+                <p class="slogan-gray-light">
+                  Yes! We'd hate to see you go, but things happen. Shoot us an email at sales@writerr.co and we'll get you taken care of.
+                </p>
+              </div>
+              <div class="col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-4 col-sm-offset-2 text-left">
+                <p class="slogan-black">Can I get rewarded if I get my instructor using Writerr for a class I'm in?</p>
+                <p class="slogan-gray-light">
+                  Absolutely! Please contact us at referrals@writerr.co and we'll look into it and get you taken care of.
+                </p>
+                <br>
+                <p class="slogan-black">What analysis are used to analyze my paper?</p>
+                <p class="slogan-gray-light">
+                  We've got a wide variety of analysis that you can run on your paper. Just to name a few: to-be verbs, vague &amp; abstract.
+                </p>
+              </div>
+            </article>
+            <article class="row sign-button text-center">
+              <div class="col-lg-6 col-lg-offset-3">
+                <button type="button" class="btn btn-primary btn-lg" data-target="{% url 'account:signup' %}">Sign Up Now</button>
+                <p class="text-small">or <a href="{% url 'account:signup' %}">Try it Now for Free</a></p>
+              </div>
+            </article>
+          </div>
+        </article>
+
+      </div>
+
+      </div>
+    </article><!-- /.content-col -->
+  </div><!-- /.main -->
+</article><!-- /.container -->
+{% endblock %}

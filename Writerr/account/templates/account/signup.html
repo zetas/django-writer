@@ -1,0 +1,87 @@
+{% extends 'static_base.html' %}
+
+{% load staticfiles %}
+
+{% block foot_js %}
+    {{ block.super }}
+    <script src="{% static 'account/js/min/hideShowPassword.min.js' %}"></script>
+    <script src="{% static 'account/js/min/signup.min.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+        {% include 'main/partials/auth_header.html' %}
+        <div class="panel panel-default panel-sign">
+                <article class="panel-heading">
+                  <h3 class="panel-title">Sign Up</h3>
+                    {{ form.non_field_errors }}
+                </article>
+                <article class="panel-body">
+                  <form method="POST" action="" class="form-horizontal" id="signup_form">
+                      {% csrf_token %}
+                    <div class="control-group">
+                      <label class="control-label sr-only" for="input1">Account Type</label>
+                      <div class="controls btn-group btn-input clearfix">
+                        <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                          <span data-bind="label">Account Type</span>&nbsp;<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu form-control acc-type" role="menu">
+                          <li class="form-control"><a href="#">Instructor</a></li>
+                          <li class="form-control"><a href="#">Student</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label sr-only" for="input2">First Name</label>
+                      <div class="controls">
+                        {{ form.first_name }}
+                      </div>
+                        {{ form.first_name.errors }}
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label sr-only" for="input3">Last Name</label>
+                      <div class="controls">
+                        {{ form.last_name }}
+                      </div>
+                        {{ form.last_name.errors }}
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label sr-only" for="input4">Type your e-mail address</label>
+                      <div class="controls">
+                        {{ form.email }}
+                      </div>
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label sr-only" for="input5">Choose a password</label>
+                      <div class="controls">
+                        {{ form.password1 }}
+                      </div>
+                        {{ form.password1.errors }}
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label sr-only" for="input5">Confirm password</label>
+                      <div class="controls">
+                        {{ form.password2 }}
+                      </div>
+                        {{ form.password2.errors }}
+                    </div>
+                      {{ form.aType }}
+                      {{ form.aType.errors }}
+                  </form>
+                  <p class="text-left sign-tos">By clicking Sign up now you are agreeing to Writerr’s <a href="">Terms &amp; Conditions</a></p>
+                </article>
+                <button type="submit" id="signup_submit" class="btn btn-primary btn-block btn-lg">Sign me up</button>
+              </div>
+              <p class="sign-alternative">or <a href="{% url 'account:login' %}">Log In</a></p>
+      </article>
+    </article>
+  </div><!-- /.main -->
+  <article class="row learn-more">
+    <article class="col-lg-3 col-lg-offset-5 text-center">
+        <a href="{% url 'main:students' %}">Learn More</a>
+    </article>
+  </article>
+</article><!-- /.container -->
+{% endblock %}
+

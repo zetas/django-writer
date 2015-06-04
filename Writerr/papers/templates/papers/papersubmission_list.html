@@ -1,0 +1,26 @@
+{% extends 'modal_list_base.html' %}
+
+{% block table_header %}
+    <tr>
+        <th>Paper Title</th>
+        <th>Sent To</th>
+        <th>Date</th>
+        <th>PDF</th>
+    </tr>
+{% endblock %}
+
+{% block table_body %}
+    {% for submission in submission_list %}
+        <tr>
+            <td><a href="{% url 'papers:update' submission.paper.pk %}">{{ submission.paper.title }}</a></td>
+            <td>{{ submission.submitted_to }}</td>
+            <td>{{ submission.date_submitted }}</td>
+            <td><a href="{{ submission.link_href }}" target="_blank">Open</a></td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="4">No Submissions</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+

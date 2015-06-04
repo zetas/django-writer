@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block foot_js %}
+    {{ block.super }}
+    <script src="{% static 'main/js/vendor/jquery-ui-1.8.23.min.js' %}"></script>
+    <script src="{% static 'main/js/vendor/jquery.noty.packaged.min.js' %}"></script>
+    <script src="{% static 'main/js/min/jquery.sidr.min.js' %}"></script>
+    <script src="{% static 'main/js/min/jquery.cookie.min.js' %}"></script>
+    <script src="{% static 'main/js/min/writerr.min.js' %}"></script>
+    <script src="{% static 'main/js/min/side_menu.min.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/css/jquery-ui-1.8.22.css' %}" />
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div id="main_container" class="container-fluid">
+    <div class="row">
+        <div class="col-md-1" id="header_logo">{% block menu_icon %}<a href="{% url 'main:dashboard' %}" id="loadMenu"><img src="{% static 'main/images/logo.png' %}" /></a>{% endblock %}</div>
+        <div class="col-md-1" id="quiet_alert_container"><span id="quiet_alert"></span></div>
+        <div id="alerts" class="col-md-2 col-md-offset-3"></div>
+    {% if not request.user.get_license_status %}
+        <div id="upgrade" class="col-md-2">
+            <a href="{% url 'account:upgrade' %}" class="btn btn-sm btn-warning">Upgrade Account</a>
+        </div>
+        <div id="top_nav" class="col-md-3">
+    {% else %}
+        <div id="top_nav" class="col-md-3 col-md-offset-2">
+    {% endif %}
+            {% block header_buttons %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="row">
+        <div id="leftmenu" class="col-md-2 left-nav-container">
+            <ul class="nav nav-pills nav-stacked left-main-nav">
+                {% block buttons %}
+                    <li><a href="{% url 'main:dashboard' %}">Dashboard</a></li>
+                    <li><a href="#" id="classes-button">Classes</a></li>
+                    {% if request.user.account_type == 'personal' %}
+                    <li><a href="{% url 'papers:create' %}">New Paper</a></li>
+                    <li><a href="#" id="edit-paper-button">Edit Paper</a></li>
+                    <li><a href="#" id="submission-list-button">Submissions</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'account:index' %}">Account Settings</a></li>
+                    <li><a href="{% url 'account:logout' %}">Logout</a></li>
+                {% endblock %}
+            </ul>
+        </div>
+        <div class="col-md-7">
+            {% block dynamic_content %}
+            {% endblock %}
+        </div>
+        <div class="col-md-2" id="right_bar">
+            {% block right_bar %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% block side_menu %}
+    {% include 'side_menu_base.html' %}
+{% endblock %}
+
+{% endblock %}

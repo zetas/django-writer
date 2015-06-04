@@ -1,0 +1,35 @@
+{% extends 'dynamic_base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/account.css' %}"/>
+{% endblock %}
+
+{% block dynamic_content %}
+<div class="col-md-6 col-md-offset-2">
+    <h3 class="text-center">Upgrade Account</h3>
+    <p class="text-muted text-center">Enter your redemption code or purchase a license below.</p>
+    <div class="col-md-8 col-centered">
+        <img src="{% static 'account/images/update.png' %}" class="img-rounded"/>
+    </div>
+    <div class="col-md-8 col-centered">
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post" id="redeem_code" class="form-horizontal">
+                {% csrf_token %}
+                    {% include 'account/partials/form_group.html' with width_class='col-md-12' field=form.license_code only %}
+                    {{ form.non_field_errors }}
+                    <input type="submit" class="btn btn-primary btn-block" value="Activate License" />
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-muted text-center checkout_break">Or</p>
+                <a href="{% url 'account:checkout' %}" class="btn btn-success btn-block">Purchase License</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

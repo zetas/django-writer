@@ -1,0 +1,22 @@
+{% load staticfiles %}
+{% load uihelpers %}
+<article class="container">
+  <div class="row brand-top">
+    {% include 'main/partials/logo.html' %}
+    <article class="col-lg-1 col-md-2 col-sm-3 col-xs-6 col-lg-offset-9 col-md-offset-7 col-sm-offset-5">
+      <div class="sign-in-btn pull-right">
+        <a href="{% url 'account:login' %}">Log In</a>
+      </div>
+
+    </article>
+  </div><!-- /.row brand-top -->
+  <div class="row main">
+    <article class="col-lg-2 nav-col">
+      <ul class="nav nav-pills nav-stacked main-nav">
+        <li class="{% active request 'main:index' %}"><a href="{% url 'main:index' %}">Home</a></li>
+        <li class="{% active request 'main:students' %}"><a href="{% url 'main:students' %}">Students</a></li>
+        <li class="{% active request 'main:instructors' %}"><a href="{% url 'main:instructors' %}">Instructors</a></li>
+        <li class="{% active request 'main:pricing' %}"><a href="{% url 'main:pricing' %}">Pricing</a></li>
+        <li class="{% active request 'main:contact' %}"><a href="{% url 'main:contact' %}">Contact</a></li>
+      </ul>
+    </article><!-- /.nav-col -->

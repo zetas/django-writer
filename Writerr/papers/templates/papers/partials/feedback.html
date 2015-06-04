@@ -1,0 +1,48 @@
+                <div id="feedback" class="hidden">
+                    <div id="comments">
+                        {% for comment in feedback %}
+                            {% if request.user == comment.author %}
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Me <span class="glyphicon glyphicon-time pull-right comment_time" data-toggle="tooltip" title="{{ comment.created }}<br/>{{ comment.created|timesince }} ago"></span></h3>
+                                </div>
+                            {% else %}
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{ comment.author.get_feedback_name }} <span class="glyphicon glyphicon-time pull-right comment_time" data-toggle="tooltip" title="{{ comment.created }}<br/>{{ comment.created|timesince }} ago"></span></h3>
+                                </div>
+                            {% endif %}
+                                <div class="panel-body">
+                                    <div class="comment_content">
+                                        {{ comment.content }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">&nbsp;</h3>
+                            </div>
+                            <div class="panel-body">
+                                There is no feedback for this paper.
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div id="submit_feedback">
+                        <div class="clearfix"></div>
+                        <div class="helper_error" id="error_feedback_submit">
+                            {{ feedback_form.non_field_errors }}
+                            {{ feedback_form.submitted_to.errors }}
+                        </div>
+                        <form method="post" role="form" id="submit_feedback_form" class="form-horizontal col-md-11 feedbackbox">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    {{ feedback_form.content }}
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-block" value="Send Feedback" />
+                        </form>
+                    </div>
+                </div>

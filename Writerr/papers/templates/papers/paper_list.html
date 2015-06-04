@@ -1,0 +1,25 @@
+{% extends 'modal_list_base.html' %}
+
+{% block table_header %}
+    <tr>
+        <th>Paper Title</th>
+        <th>Date Last Modified</th>
+        <th>Date Created</th>
+        <th>Action</th>
+    </tr>
+{% endblock %}
+
+{% block table_body %}
+    {% for paper in paper_list %}
+        <tr>
+            <td><a href="{% url 'papers:update' paper.pk %}">{{ paper.title }}</a></td>
+            <td>{{ paper.date_modified }}</td>
+            <td>{{ paper.date_created }}</td>
+            <td><a class="paper_delete_id" href="{% url 'papers:delete' paper.pk %}">Delete</a></td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="4">No Papers</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

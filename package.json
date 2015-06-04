@@ -1,0 +1,48 @@
+{
+  "name": "Writerr.co",
+  "version": "1.2",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-compass": "~0.7.2",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-clean": "~0.5.0"
+  },
+  "description": "Django Webapp to help students and instructors with research papers.",
+  "main": "Gruntfile.js",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.org/zetas/writerr.git"
+  },
+  "author": "David Della Vecchia <ddv@qubitlogic.net>",
+  "license": "Proprietary",
+  "apps": {
+      "main": {
+          "js": "Writerr/main/static/main/js",
+          "css": "Writerr/main/static/main/css",
+          "sass": "Writerr/main/design",
+          "coffee": "Writerr/main/coffee"
+      },
+      "papers": {
+          "js": "Writerr/papers/static/papers/js",
+          "css": "Writerr/papers/static/papers/css",
+          "sass": "Writerr/papers/design",
+          "coffee": "Writerr/papers/coffee"
+      },
+      "account": {
+          "js": "Writerr/account/static/account/js",
+          "css": "Writerr/account/static/account/css",
+          "sass": "Writerr/account/design",
+          "coffee": "Writerr/account/coffee"
+      },
+      "classes": {
+          "js": "Writerr/classes/static/classes/js",
+          "css": "Writerr/classes/static/classes/css",
+          "sass": "Writerr/classes/design",
+          "coffee": "Writerr/classes/coffee"
+      }
+  }
+}

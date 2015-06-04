@@ -1,0 +1,106 @@
+{% extends 'dynamic_base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'classes/css/classes.css' %}" />
+{% endblock %}
+
+{% block foot_js %}
+    {{ block.super }}
+    <script src="{% static 'classes/js/min/classes_create.min.js' %}"></script>
+{% endblock %}
+
+{% block dynamic_content %}
+<div class="col-md-6 col-md-offset-1">
+    <div class="row">
+        <div class="col-md-9 col-md-offset-2">
+            <h1 class="text-center">Setup your class</h1>
+            <div class="col-md-11 classes_row" id="class_create_step">
+                {% if step == 1 %}
+                <img class="classes_step_image" src="{% static 'classes/images/step1.png' %}" />
+                {% else %}
+                <img class="classes_step_image" src="{% static 'classes/images/step2.png' %}" />
+                {% endif %}
+            </div>
+        </div>
+     </div>
+    {% if step == 1 %}
+    <div class="row classes_row">
+        <div class="col-md-9 col-md-offset-2">
+
+            <form method="post" id="class_create_form" role="form">
+                {% csrf_token %}
+                {% include 'classes/partials/form_group.html' with width_class='col-md-12' field=form.name only %}
+                {% include 'classes/partials/form_group.html' with width_class='col-md-12' field=form.students only %}
+            <div class="col-md-5">
+                <hr class="classes_separator" />
+            </div>
+            <div class="col-md-2">
+                <h5 class="text-center text-muted">or</h5>
+            </div>
+            <div class="col-md-5">
+                <hr class="classes_separator" />
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12 text-center">
+                <a href="#" class="text-muted" id="csv_upload_link">Update Class Roster with a CSV</a>
+            </div>
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-primary btn-block" value="Continue to Step 2" />
+            </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+    {% else %}
+</div>
+<div class="col-md-12 classes_row">
+    <div class="row">
+        <div class="col-md-7 col-md-offset-1">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for suser in student_users %}
+                        <tr>
+                            <td>{{ suser.email }}</td>
+                            <td>{{ suser.first_name }}</td>
+                            <td>{{ suser.last_name }}</td>
+                        </tr>
+                    {% endfor %}
+                    {% for semail in student_nonusers %}
+                        <tr>
+                            <td>{{ semail }}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-10">
+            <form method="post" id="class_create_form" action="{% url 'classes:create_step' step=2 %}">
+                {% csrf_token %}
+                {{ form.name }}
+                {{ form.students }}
+                <div class="col-md-4 col-md-offset-3">
+                <button type="submit" id="classes_submit_button" class="btn btn-success btn-block" >Create Class</button>
+                    </div>
+            </form>
+            </div>
+        </div>
+</div>
+        {% endif %}
+{% endblock %}

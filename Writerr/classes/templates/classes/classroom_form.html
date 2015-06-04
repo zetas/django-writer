@@ -1,0 +1,125 @@
+{% extends 'dynamic_base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'classes/css/classes.css' %}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block foot_js %}
+    {{ block.super }}
+    <script src="{% static 'classes/js/min/classes_update.min.js' %}"></script>
+{% endblock %}
+
+{% block dynamic_content %}
+<div class="col-md-12 classes_row">
+    <div class="col-md-7 col-md-offset-1">
+        <h2 class="text-center">{{ object.name }}</h2>
+    </div>
+</div>
+<div class="col-md-12 classes_row">
+    <div class="col-md-7 col-md-offset-1">
+        <a href="#" id="add_student_link"><span class="glyphicon glyphicon-plus"></span> Add student(s) & Update Class</a>
+    </div>
+    <div class="col-md-7 col-md-offset-1 classes_table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in object.students.all %}
+                    {% if student in object.instructors %}
+                        <tr class="info">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        {% if student.first_name %}
+                        <td>{{ student.first_name }}</td>
+                        {% else %}
+                        <td>&nbsp;</td>
+                        {% endif %}
+                        {% if student.last_name %}
+                        <td>{{ student.last_name }}</td>
+                        {% else %}
+                        <td>&nbsp;</td>
+                        {% endif %}
+                        <td>{{ student.email }}</td>
+                        <td>Active</td>
+                        <td>
+                            {% if student not in object.instructors %}
+                            <a href="#" class="class_tooltip promote_link" data-name="{{ student.email }}" data-class="{{ object.id }}" data-student="{{ student.id }}" data-toggle="tooltip" title="Promote student to instructor">
+                                <i class="fa fa-graduation-cap fa-lg"></i>
+                            </a>
+                            {% else %}
+                            <a href="#" class="class_tooltip demote_link" data-name="{{ student.email }}" data-class="{{ object.id }}" data-student="{{ student.id }}" data-toggle="tooltip" title="Demote instructor to student">
+                                <i class="fa fa-book fa-lg"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="#" class="class_tooltip remove_link" data-name="{{ student.email }}" data-class="{{ object.id }}" data-student="{{ student.id }}" data-toggle="tooltip" title="Remove this student from the roster">
+                                <i class="fa fa-times fa-lg"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                {% for pending in pending_students %}
+                    <tr>
+                        {% if pending.student %}
+                            {% if pending.student.first_name %}
+                                <td>{{ pending.student.first_name }}</td>
+                            {% else %}
+                                <td>&nbsp;</td>
+                            {% endif %}
+                            {% if pending.student.last_name %}
+                                <td>{{ pending.student.last_name }}</td>
+                            {% else %}
+                                <td>&nbsp;</td>
+                            {% endif %}
+                        {% else %}
+                            <td colspan="2">&nbsp;</td>
+                        {% endif %}
+
+                        <td>{{ pending.email }}</td>
+
+                        {% if pending.student %}
+                            <td><span class="class_tooltip pending" data-toggle="tooltip" title="No License">Pending</span></td>
+                        {% else %}
+                            <td><span class="class_tooltip pending" data-toggle="tooltip" title="No Account">Pending</span></td>
+                        {% endif %}
+                        <td>&nbsp;</td>
+                        <td>
+                        <a href="#" class="class_tooltip pending_remove_link" data-class="{{ object.id }}" data-name="{{ pending.email }}" data-student="{{ pending.id }}" data-toggle="tooltip" title="Remove this student from the roster" id="remove_student_link_{{ student.id }}">
+                                <i class="fa fa-times fa-lg"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block ajax %}
+    <div id="dialog_holder_add" class="hidden">
+        <div class="container-fluid">
+                <form id="add_student_form" method="post" role="form" class="form-horizontal">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {% include 'classes/partials/form_group.html' with width_class='col-md-12' field=form.name only %}
+                    {% include 'classes/partials/form_group.html' with width_class='col-md-12' field=form.students only %}
+                    <button type="submit" class="btn btn-success btn-block" id="classes_add_student">Update Class</button>
+                </form>
+        </div>
+    </div>
+{% endblock %}

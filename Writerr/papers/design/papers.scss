@@ -1,0 +1,195 @@
+$analyze_header_color: #414141;
+
+//Needed for jscrollpane theme
+$base_path: '/static/papers/images/';
+
+@import "jscrollpane";
+@import "jscrollpane_theme";
+
+//@import "medium-editor";
+//@import "medium-editor-theme-bootstrap";
+//@import "medium-editor-insert-plugin";
+
+.paper_list {
+  width: 75%;
+  margin-left: 100px;
+  th {
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
+.analyze_result a {
+  color: #0088cc;
+  text-decoration: none;
+}
+
+%medium-editable {
+  display: block;
+  width: 95%;
+  color: black;
+  font-family: 'Playfair Display', serif;
+}
+
+#title_editable {
+  @extend %medium-editable;
+  height: 100%;
+  font-size: 34px;
+  margin-bottom: 25px;
+}
+
+#body_editable {
+  @extend %medium-editable;
+  height: 600px;
+  font-size: 19px;
+  color: #3C4751;
+  h3 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 26px;
+    font-weight: bold;
+  }
+}
+
+.column_title  {
+  color: $analyze_header_color;
+  float: left;
+  font-size: 18px;
+  line-height: 34px;
+  margin-top: 15px;
+  background: 0;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.inner_title {
+  font-size: 15px;
+  border-bottom: 0;
+}
+
+.analyze_content {
+  color: #707070;
+  float: left;
+  font-size: 14px;
+  line-height: 22px;
+  min-height: 10px;
+  padding: 6px 0 7px;
+  width: 250px;
+}
+
+.analyze_description {
+  color: $analyze_header_color;
+}
+
+.results {
+  float:right;
+  font-weight:normal;
+}
+
+.tooltip_info {
+  font-weight:bold;
+  color: $analyze_header_color;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.tooltip_info:hover {
+  text-decoration:none;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+#quiet_alert {
+  color: lightgrey;
+  position: fixed;
+  left: 85px;
+  top: 30px;
+}
+
+.class_textarea {
+  border: 1px solid #ccc;
+}
+
+#paper_submit_form {
+  margin-top: 20px;
+}
+
+#comments {
+  height: 500px;
+  .panel {
+    margin-right: 20px;
+  }
+}
+
+#submit_feedback {
+  padding-top: 20px;
+}
+
+/*.comment_time {
+  font-size: 13px;
+}*/
+
+#permalink_display {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.medium-editor-placeholder:after {
+  font-style: normal;
+  color: #ccc;
+  top: 0;
+}
+
+*:focus {
+  outline: none;
+}
+
+// New Feedback box alignment
+
+.feedbackbox {
+  padding-left: 0;
+}
+
+
+// Icon Menus Papers
+
+.paper-icon-menu {
+  .btn-success {
+    color: #FFF;
+    border-color: #19C408;
+    background-color: #19C408;
+  }
+
+  .btn-default {
+      background-color: #FFF;
+      color: #428BCA;
+      border-color: #CCC;
+      &:hover {
+        background-color: #428BCA;
+        color: #FFF;
+        border-color: #428BCA;
+      }
+  }
+}
+
+
+// Feedback styling
+
+#feedback {
+  .panel-success, .panel-info {
+    border-color: #CCC;
+  }
+  .panel-success > .panel-heading {
+    background-color: #108AE9;
+    border-color: #CCC;
+    color: #FFF;
+  }
+  .panel-info > .panel-heading {
+    background-color: #FFF;
+    border-color: #CCC;
+    color: #108AE9;
+  }
+}

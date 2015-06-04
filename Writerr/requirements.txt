@@ -1,0 +1,12 @@
+#-*- mode: conf -*-
+django==1.6.2
+psycopg2
+south
+html5lib==0.90
+pyPdf2>=1.19
+pyPdf
+Pillow==2.2.2
+pisa==3.0.32
+reportlab==2.5
+stripe
+raven

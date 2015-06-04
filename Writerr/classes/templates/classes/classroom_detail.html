@@ -1,0 +1,51 @@
+{% extends 'dynamic_base.html' %}
+
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'classes/css/classes.css' %}" />
+{% endblock %}
+
+
+{% block dynamic_content %}
+ <div class="col-md-12 classes_row">
+    <div class="col-md-7 col-md-offset-1">
+        <h2 class="text-center">{{ object.name }}</h2>
+    </div>
+</div>
+<div class="col-md-12 classes_row">
+    <div class="col-md-7 col-md-offset-1 classes_table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in object.students.all %}
+                    {% if student in object.instructors %}
+                        <tr class="info">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        {% if student.first_name %}
+                        <td>{{ student.first_name }}</td>
+                        {% else %}
+                        <td>&nbsp;</td>
+                        {% endif %}
+                        {% if student.last_name %}
+                        <td>{{ student.last_name }}</td>
+                        {% else %}
+                        <td>&nbsp;</td>
+                        {% endif %}
+                        <td>{{ student.email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

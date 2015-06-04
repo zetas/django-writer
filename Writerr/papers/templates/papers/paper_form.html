@@ -1,0 +1,66 @@
+{% extends 'papers/base.html' %}
+
+{% load staticfiles %}
+
+{% block dynamic_content %}
+    <div id="title_editable" class="editable" data-placeholder="Type your title" data-disable-toolbar="True" data-disable-return="True">
+        {# Editable title div #}
+    </div>
+    <div id="body_editable" class="editable" data-placeholder="Start typing your paper...">
+        {# Editable body div #}
+    </div>
+
+    {# inserts hidden form #}
+    <form method="post" class="current_form" id="paper_form">
+        {% csrf_token %}
+        <input type="hidden" id="paper_id" value="{{ pk }}" />
+        {{ form.title }} {# inserts hidden input field #}
+        {{ form.body }} {# inserts hidden input field #}
+    </form>
+{% endblock %}
+
+{% block ajax %}
+    {% if urlname != 'instructor' %}
+    <div id="dialog_holder_submit" class="hidden">
+        <div class="container-fluid">
+                <form id="paper_submit_form" method="post" role="form" class="form-inline">
+                    <div class="row">
+                        <div class="col-md-6">
+                        {% csrf_token %}
+                        {{ submit_form.non_field_errors }}
+                        {% include 'papers/partials/form_input.html' with width_class='form-group' field=submit_form.submitted_to container_id='submit_input_container' only %}
+                        </div>
+                        <div class="col-md-5 col-md-offset-1">
+                            <input type="submit" class="btn btn-primary" id="paper_send_as_pdf" value="Send Paper as PDF"/>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+    <div id="dialog_holder_internal_submit" class="hidden">
+        <div class="container-fluid">
+            <div class="row">
+                <form id="paper_internal_submit_form" method="post" role="form" class="form-inline">
+                        {% csrf_token %}
+                        {{ internal_submit_form.non_field_errors }}
+                        {% include 'papers/partials/form_input.html' with width_class='form-group' field=internal_submit_form.classroom container_id='internal_submit_input_container' %}
+                        <input type="submit" class="btn btn-primary" id="paper_internal_submit_submit" value="Submit Paper"/>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="dialog_holder_permalink" class="hidden">
+        <div class="container-fluid">
+            <div class="row">
+                {% if permalink %}
+                <div class="form-group has-warning">
+                    <input type="text" class="form-control input-lg" id="permalink_display" readonly="readonly" value="{{ http }}{{ url }}{% url 'papers:permalink' permalink.code %}" />
+                    <span class="help-block text-warning">Anyone can access your paper with this link.</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

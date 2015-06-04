@@ -1,0 +1,29 @@
+{% extends 'static_base.html' %}
+
+{% load staticfiles %}
+
+
+{% block content %}
+<article class="container">
+  <div class="row brand-top">
+    {% include 'main/partials/logo.html' %}
+  </div><!-- /.row brand-top -->
+  <div class="row main-home">
+    {% include 'main/partials/screenshot.html' %}
+    <article class="col-lg-6 col-md-6">
+      <h1>Your writing, improved</h1>
+      <article class="row sign-button">
+        <div class="col-lg-6 col-lg-offset-1 text-center">
+          <a href="{% url 'account:signup' %}"><button type="button" class="btn btn-primary btn-lg">Sign Up</button></a>
+          <p class="text-small">or <a href="{% url 'account:login' %}">Log in</a></p>
+        </div>
+      </article>
+    </article>
+  </div><!-- /.main -->
+  <article class="row learn-more">
+    <article class="col-lg-3 col-lg-offset-5 text-center">
+        <a href="{% url 'main:students' %}">Learn More</a>
+    </article>
+  </article>
+</article><!-- /.container -->
+{% endblock %}

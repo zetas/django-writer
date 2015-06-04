@@ -1,0 +1,12 @@
+$bgcolor: #414f94;
+
+// Fonts
+$sidr-font-family: 'Open Sans',tahoma,verdana,arial,sans-serif;
+$sidr-font-size: 15px;
+
+// Colors
+$sidr-background : $bgcolor;
+$sidr-background-shadow-color : $bgcolor;
+$sidr-text-color: #eee;
+
+@import "sidr_base";

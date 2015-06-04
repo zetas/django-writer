@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+{% verbatim %}
+@page {
+        size: a4 portrait;
+        @frame header_frame {
+            -pdf-frame-content: header_content;
+            left: 43pt; width: 50pt; top: 15pt; height: 40pt;
+        }
+        @frame title_frame {
+            -pdf-frame-content: title_content;
+            left: 135pt; width: 300pt; top: 18pt; height: 40pt;
+        }
+        @frame content_frame {
+            left: 50pt; width: 475pt; top: 80pt; height: 632pt;
+        }
+        @frame footer_frame {
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 475pt; top: 800pt; height: 20pt;
+        }
+}
+
+
+#title_content {
+    color: blue;
+    font-family: 'Helvetica';
+    font-size: 13px;
+    border-bottom: 1px #144e89 solid;
+}
+
+#header_content {
+        padding-bottom: 10px;
+        border-bottom: 1px #144e89 solid;
+
+}
+
+#title_content span {
+        font-weight: bold;
+}
+
+#body {
+        font-family: 'Helvetica';
+        font-size: 18px;
+}
+
+img {
+    zoom: 80%;
+}
+
+#footer_content {
+        padding-top: 10px;
+        border-top: 1px #144e89 solid;
+}
+{% endverbatim %}
+</style>
+
+</head>
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+        <img src="{{ logo }}" />
+    </div>
+
+        <div id="title_content">
+            <span>{{ title }}</span><br/>
+            By {{ author }}
+        </div>
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">Page <pdf:pagenumber>
+    </div>
+
+    <!-- HTML Content -->
+    <div id="body">{{ body|safe }}</div>
+</body>
+</html>

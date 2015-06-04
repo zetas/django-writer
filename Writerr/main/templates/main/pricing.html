@@ -1,0 +1,67 @@
+{% extends 'static_base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    {% include 'main/partials/header.html' %}
+
+    <article class="col-lg-9 content-col">
+      <div class="row">
+        <article class="col-lg-10 col-lg-offset-1">
+          <div class="row text-center">
+            <h1 class="slogan-black">Simple Pricing</h1>
+            <h4 class="slogan-gray-light">We offer monthly pricing and yearly pricing.</h4>
+          </div>
+          <div class="row pricing-tables">
+            <article class="col-lg-6 col-md-6 col-sm-6 text-center">
+              <div class="panel panel-default panel-price">
+                <article class="panel-heading">
+                  <h3 class="panel-title">Monthly Pricing</h3>
+                </article>
+                <article class="panel-body">
+                  <p>
+                    <br>
+                    <span>$5 / month</span><br> <br>
+                    Unlimted feedback <br>
+                    Unlimited analysis <br>
+                    Unlimited submissions <br>
+                    Unlimited classes <br>
+                  </p>
+                </article>
+                <a href="{% url 'account:signup' %}"><article class="btn btn-primary btn-block panel-footer">
+                  <h3 class="panel-title">Sign me up</h3>
+                </article></a>
+              </div>
+            </article>
+            <article class="col-lg-6 col-md-6 col-sm-6 text-center">
+              <div class="panel panel-default panel-price">
+                <article class="panel-heading">
+                  <h3 class="panel-title">Yearly Pricing</h3>
+                </article>
+                <article class="panel-body">
+                  <p>
+                    <span class="price-small">17% discount</span><br>
+                    <span>$50 / year</span><br> <br>
+                    Unlimted feedback <br>
+                    Unlimited analysis <br>
+                    Unlimited submissions <br>
+                    Unlimited classes <br>
+                  </p>
+                </article>
+                <a href="{% url 'account:signup' %}"><article class="btn btn-primary btn-block panel-footer">
+                  <h3 class="panel-title">Sign me up</h3>
+                </article></a>
+              </div>
+            </article>
+          </div>
+        </article>
+
+      </div>
+
+      </div>
+    </article><!-- /.content-col -->
+      </div><!-- /.main -->
+</article><!-- /.container -->
+
+{% endblock %}

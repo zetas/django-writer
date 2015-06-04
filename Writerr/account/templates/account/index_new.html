@@ -1,0 +1,65 @@
+{% extends 'dynamic_base.html' %}
+
+{% load staticfiles %}
+
+{% block dynamic_content %}
+    <article class="col-lg-9 content-col">
+      <div class="row">
+        <article class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+          <div class="row text-center">
+            <h1 class="slogan-black">Have questions about Writerr?</h1>
+            <h4 class="slogan-gray-light">We want to help you fully-understand how we can help improve your writing.</h4>
+            <article class="row two-col">
+                <img src="{% static 'account/images/school_header.jpg' %}" class="img-responsive center-block" alt="">
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <img src="{% static 'account/images/comment_bubble.png' %}" class="img-responsive center-block" alt="">
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 text-right two-col-text">
+                <p class="slogan-black">Clear Communication and Feedback</p>
+                <p class="slogan-gray-light">Nothing is more frustrating than getting 1,000 e-mailsfrom your instructor and trying to piece the e-mail thread together. Receive feedback in one location, right where your paper is located.</p>
+              </div>
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-3 col-lg-offset-0 col-lg-push-9 col-md-2 col-md-offset-1 col-md-push-9 col-sm-2 col-sm-offset-1 col-sm-push-9 col-xs-12">
+                <img src="{% static 'account/images/cloud.png' %}" class="img-responsive" alt="">
+              </div>
+              <div class="col-lg-9 col-lg-pull-3 col-md-9 col-md-pull-3 col-sm-9 col-sm-pull-3 col-xs-12 text-left two-col-text">
+                <p class="slogan-black">Work From Anywhere</p>
+                <p class="slogan-gray-light">Work on your paper anywhere, whether you're at your house, your friend's house or you're on vacation in Japan. All you need in an internet connection</p>
+              </div>
+            </article>
+            <article class="row two-col">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <img src="{% static 'account/images/green_arrow.png' %}" class="img-responsive center-block" alt="">
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 text-right two-col-text">
+                <p class="slogan-black">Send Your Paper Anytime</p>
+                <p class="slogan-gray-light">Been in a pinch and needed to send your paper to your instructor, but forgot your flash drive at home? Send your paper from anywhere, whether it be your laptop, iPad or phone.</p>
+              </div>
+            </article>
+          </div>
+        </article>
+      </div>
+      <div class="row">
+          <article class="col-md-12">
+              <div class="col-md-5 col-md-offset-4">
+                  <br/><br/>
+                  <a href="{% url 'account:upgrade' %}" class="btn btn-primary btn-lg btn-block">Sign up Now</a>
+              </div>
+            </article>
+      </div>
+    <div class="row">
+    <br/><br/><br/>
+    {% include 'main/partials/contact_form.html' with contact_header='Still not convinced?' contact_subheader="Fill out the form below to contact us. We'd love to help you learn more about Writerr." form=contact_form %}
+    </article>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>&nbsp;</p>
+        </div>
+    </div>
+    </article><!-- /.content-col -->
+
+{% endblock %}

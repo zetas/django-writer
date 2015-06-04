@@ -1,0 +1,158 @@
+{% extends 'dynamic_base.html' %}
+
+{% load staticfiles %}
+{% load uihelpers %}
+
+{% block foot_js %}
+    {{ block.super }}
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script src="{% static 'account/js/checkout.js' %}"></script>
+    <script type="text/javascript">
+
+        Stripe.setPublishableKey('{{ stripe_key }}');
+
+        var account_type = '{{ request.user.account_type }}'
+    </script>
+{% endblock %}
+
+{% block dynamic_content %}
+<div class="row">
+    <div class="col-md-12">
+        {% if request.user.account_type == "personal" %}
+        <h2>Writerr for Students</h2>
+        {% else %}
+        <h2>Writerr for Instructors</h2>
+        {% endif %}
+        {% if request.user.account_type == "personal" %}
+            <p>Writerr for students allows you to buy licenses for yourself.</p>
+            <p>Writerr for students offers monthly or yearly billing, unlimited analysis, unlimited paper submissions and most importantly, a safe place to store your papers and improve your writing abilities.</p>
+        {% else %}
+            <p>Writerr for instructors allows you to buy licenses for your organization, whether you are purchasing license for your classroom, school or business.</p>
+            <p>Writerr for enterprise offers monthly or yearly billing, unlimited analysis, unlimited paper submissions and most importantly, a safe place to store your papers and improve your writing abilities.</p>
+        {% endif %}
+
+    </div>
+</div>
+<hr class="separator"/><br/>
+<div class="row">
+    <div class="col-md-6">
+        <form action="{% url 'account:checkout' %}" autocomplete="on" method="post" id="checkout_payment" class="form-horizontal" role="form">
+        {% csrf_token %}
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title gray-colored">The Basics</h3>
+                </div>
+                <div class="panel-body">
+                    {{ form.non_field_errors }}
+                    <div class="form-group">
+                        {% include 'account/partials/form_input.html' with width_class='col-md-6' field=form.first_name only %}
+                        {% include 'account/partials/form_input.html' with width_class='col-md-6' field=form.last_name only %}
+                    </div>
+                    {% if form.company_name %}
+                        {% include 'account/partials/form_group.html' with width_class='col-md-12' field=form.company_name only %}
+                    {% endif %}
+                    {% include 'account/partials/form_group.html' with width_class='col-md-12' field=form.telephone only %}
+                    <div class="form-group">
+                        <div class="col-md-9 col-md-offset-2">
+                            {% for sub in form.sub_type %}
+                                <div class="radio-inline">
+                                    {{ sub.tag }} {{ sub.choice_label }}
+                                </div>
+                            {% endfor %}
+                            {% if sub_type.errors %}
+                            <span class="help-block text-danger">{{ sub_type.errors }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if form.quantity %}
+                    <div class="form-group">
+                    {% include 'account/partials/form_input.html' with width_class='col-md-12' field=form.quantity only %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title gray-colored">Billing Information</h3>
+                </div>
+                <div class="panel-body">
+                    {% include 'account/partials/form_group.html' with width_class='col-md-12' field=form.billing_name only %}
+                    {% include 'account/partials/form_group.html' with width_class='col-md-12' field=form.address only %}
+                    <div class="form-group">
+                        {% include 'account/partials/form_input.html' with width_class='col-md-6 half-form-padding' field=form.zip only %}
+                        {% include 'account/partials/form_input.html' with width_class='col-md-6' field=form.city only %}
+                    </div>
+                    <div class="form-group">
+                        {% include 'account/partials/form_input.html' with width_class='col-md-6 half-form-padding' field=form.state only %}
+                        {% include 'account/partials/form_input.html' with width_class='col-md-6' field=form.country only %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title gray-colored">Payment Details</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <span class="checkout-details">Secure payments via Stripe <img src="{% static 'main/images/credit_cards.gif' %}" alt="credit_cards"/></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" id="stripe_cc_owner" class="form-control" placeholder="Full Name" data-stripe="name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="number" id="stripe_cc_number" class="form-control" placeholder="Credit Card Number" data-stripe="number" value="4242424242424242" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <select id="stripe_cc_expires_month" class="form-control" data-stripe="exp-month"><option value="01" selected>January</option><option value="02">February</option><option value="03">March</option><option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option><option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="stripe_cc_expires_year" class="form-control" data-stripe="exp-year"><option value="14">2014</option><option value="15" selected>2015</option><option value="16">2016</option><option value="17">2017</option><option value="18">2018</option><option value="19">2019</option><option value="20">2020</option><option value="21">2021</option><option value="22">2022</option><option value="23">2023</option><option value="24">2024</option></select>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" placeholder="CVC" id="stripe_cc_checkcode" class="form-control" size="4" maxlength="4" data-stripe="cvc" value="333" />
+                        </div>
+                    </div>
+                    <div class="payment_error" id="stripe_error">
+                        <div id="payment-errors" class="payment-errors messageStackError"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            {{ form.stripe_token }}
+            {{ form.cc_type }}
+            {{ form.cc_last_4 }}
+            <input type="submit" value="submit" style="visibility: hidden;"/>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th class="gray-colored">Licenses</th>
+                    <th class="gray-colored"><span id="price_type_header">Monthly</span> Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="license_count">0</td>
+                    <td id="license_cost">$0.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn btn-success btn-block btn-lg" id="checkout_submit" >Purchase License(s)</button>
+    </div>
+</div>
+
+{% endblock %}

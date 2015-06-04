@@ -1,0 +1,29 @@
+::-webkit-input-placeholder {
+  text-align: center;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  text-align: center;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  text-align: center;
+}
+
+:-ms-input-placeholder {
+  text-align: center;
+}
+
+.checkout_break {
+  padding-top: 10px;
+}
+
+.gray-colored {
+  color: #565656;
+}
+
+.half-form-padding {
+  padding-right: 5px;
+}
